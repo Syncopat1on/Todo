@@ -1,14 +1,20 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
 export default function Task({ task, onToggle, onDelete, onEdit }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState(task.text);
+  const editInputRef = React.useRef(null);
 
   useEffect(() => {
     setEditText(task.text);
   }, [task.text]);
+
+  useEffect(() => {
+    if (isEditing && editInputRef.current) {
+      editInputRef.current.focus();
+    }
+  }, [isEditing]);
 
   const handleEditSubmit = (e) => {
     e.preventDefault();
@@ -29,41 +35,49 @@ export default function Task({ task, onToggle, onDelete, onEdit }) {
   };
 
   return (
-    <li className={`${task.completed ? 'completed' : ''} ${isEditing ? 'editing' : ''}`}>
-      <div className="view">
-        <input 
-          className="toggle" 
-          type="checkbox" 
+    <li
+      className={`${task.completed ? 'completed' : ''} ${isEditing ? 'editing' : ''}`}
+    >
+      <div className='view'>
+        <input
+          id={`task-toggle-${task.id}`}
+          className='toggle'
+          type='checkbox'
           checked={task.completed}
           onChange={() => onToggle(task.id)}
         />
-        <label onDoubleClick={() => setIsEditing(true)}>
-          <span className="description">{task.text}</span>
-          <span className="created">
+        <label
+          htmlFor={`task-toggle-${task.id}`}
+          onDoubleClick={() => setIsEditing(true)}
+        >
+          <span className='description'>{task.text}</span>
+          <span className='created'>
             created {formatDistanceToNow(task.createdAt, { addSuffix: true })}
           </span>
         </label>
-        <button 
-          className="icon icon-edit" 
+        <button
+          className='icon icon-edit'
           onClick={() => setIsEditing(true)}
-          aria-label="Edit"
+          aria-label='Edit'
+          type='button'
         />
-        <button 
-          className="icon icon-destroy" 
+        <button
+          className='icon icon-destroy'
           onClick={() => onDelete(task.id)}
-          aria-label="Delete"
+          aria-label='Delete'
+          type='button'
         />
       </div>
       {isEditing && (
         <form onSubmit={handleEditSubmit}>
           <input
-            type="text"
-            className="edit"
+            type='text'
+            className='edit'
             value={editText}
             onChange={(e) => setEditText(e.target.value)}
             onBlur={handleEditSubmit}
             onKeyDown={handleKeyDown}
-            autoFocus
+            ref={editInputRef}
           />
         </form>
       )}

@@ -8,10 +8,11 @@ export default function TasksFilter({ currentFilter, onFilterChange }) {
   ];
 
   return (
-    <ul className="filters">
-      {filters.map(filter => (
+    <ul className='filters'>
+      {filters.map((filter) => (
         <li key={filter.id}>
           <button
+            type='button'
             className={currentFilter === filter.id ? 'selected' : ''}
             onClick={() => onFilterChange(filter.id)}
           >
@@ -20,5 +21,5 @@ export default function TasksFilter({ currentFilter, onFilterChange }) {
         </li>
       ))}
     </ul>
-  )
-};
+  );
+}
