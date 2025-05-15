@@ -1,7 +1,8 @@
 {
   "name": "todo-app",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "private": false,
+  "license": "MIT",
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
@@ -18,7 +19,7 @@
     "lint-staged": "^16.0.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -67,5 +68,8 @@
     "eslint-plugin-react": "^7.37.5",
     "globals": "^16.1.0",
     "prettier": "^3.5.3"
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/Syncopat1on/Todo.git",
+  "author": "Syncopat1on <undermed@bk.ru>"
 }
